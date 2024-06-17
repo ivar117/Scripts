@@ -1,0 +1,5 @@
+#!/bin/sh
+
+while true; do
+	ls -d * /bin | entr -d xdg-xmenu > ~/.local/share/xdg-xmenu
+done

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+chosen=$(fzf)
+
+[ -z $chosen ] && exit || $EDITOR $chosen

@@ -1,0 +1,22 @@
+#!/bin/sh
+#dmenu grej där väljer ett theme som sedan funkar system wide i dmennu, st, dwm, ksk xmenu osv 
+#Todo, vimrc ändra colorscheme också lol. Fixa så att det inte blir <inget>.h vrf de blir så
+#Bra themes, monokai e nice
+#PS1 i zsh, red och green är bra med monokai
+
+#sed -i 's/catppuccin/nord/' config.h
+#I dmenu -p prompten gör så visar nuvarande theme lol
+theme=$(ls ~/.local/src/xmenu/colorschemes | sed 's/\.h//g' | dmenu -p "Theme?")
+
+##vim,
+# måste fixa så att det ej ändrar theme pluginen wowoo, fixat nu tro jag
+if [ -z $theme ]; then
+	exit
+else
+sed -i 's/.*\s'$(cat ~/.config/nvim/init.vim | grep "colorscheme\s.*" | sed 's/colorscheme\s//')'/colorscheme '$theme'/' ~/.config/nvim/init.vim
+#sed -i 's/'$(cat config.h | g -o "colorschemes.*" | sed 's/colorschemes\///;s/\.h"//')'/'$theme'/' config.h
+sed -i 's/'$(cat ~/.local/src/st/config.h | grep -o "colorschemes.*" | sed 's/colorschemes\///;s/\.h"//')'/'$theme'/' ~/.local/src/st/config.h ~/.local/src/dwm/config.h ~/.local/src/dmenu/config.h ~/.local/src/xmenunonint/config.h ~/.local/src/xmenu/config.h
+
+#Recompile o refresh dwm
+cd ~/.local/src/st && doas make install && cd ~/.local/src/dwm && doas make install && cd ~/.local/src/dmenu && doas make install && cd ~/.local/src/xmenunonint && doas make install && cd ~/.local/src/xmenu && doas make install && xdotool key super+ctrl+r 
+fi

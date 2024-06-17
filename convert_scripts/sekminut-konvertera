@@ -1,0 +1,6 @@
+#!/bin/sh
+
+case $1 in
+	-ms) printf "$2 * 60\n" | bc ;;
+	-sm) printf "$2 / 60\n" | bc ;;
+esac

@@ -1,0 +1,6 @@
+#!/bin/sh
+#Skript som pipear in i dmenu alla config.h (st, dwm, dmenu Bobby: "etctera, etctera, guys" i .local/src och sen xargs vim
+
+chosen=$(find ~/.local/src/* | grep config.h | sed 's/\/home\/ivar\/.local\/src\/backup.*//g; /^$/ d' | dmenu -l 15 -h 32 -i -c -bw 1)
+
+[ -z $chosen ] && exit || $TERMINAL -e nvim $chosen

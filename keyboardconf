@@ -1,0 +1,30 @@
+#!/bin/sh
+
+xset r rate 240 90
+
+#setxkbmap -option caps:super
+
+setxkbmap -option caps:super,altwin:menu_win
+#setxkbmap -option caps:swapescape,altwin:menu_win,caps:super
+
+#Om caps inte hålls in då den bli esc
+killall xcape 2>/dev/null ; xcape -e 'Super_L=Escape' 
+
+#Öka acceleration på thinkpad usb keyboard trackpoint
+
+#increase_accel() {
+    #id=$(xinput --list | grep "Lenovo ThinkPad Compact USB Keyboard with TrackPoint.* pointer" | grep -o "id=..\?"  | grep "[0-9]" | sed 's/id=//g') #Returnerar id:na från xinput för trackpointen, för av någon anledning finns det två st som är olika, bara den ena kan man ändra accel speed med loll
+    #id1=$(printf "$id" | sed ' 2d')
+    #id2=$(printf "$id" | sed ' 1d')
+    
+    #speed=0.9
+    #xinput set-prop "$id1" "libinput Accel Speed" "$speed" || xinput set-prop "$id2" "libinput Accel Speed" "$speed"
+#}
+
+#[ -z "$(xinput --list | grep "Lenovo ThinkPad Compact USB Keyboard with TrackPoint")" ] && exit || increase_accel
+
+#Switchar menu key för super
+#xmodmap -e 'keycode 135 = Super_R'
+
+#Switcha ctrl r för super hurrrr
+#xmodmap -e 'keycode 105 = Super_R'

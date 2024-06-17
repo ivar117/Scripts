@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#mountare skriptet fast funka med disks
+
+[ -z "$(lsblk -lp | grep "part $")" ] && printf "No mountable partitions available.\n" && exit || device="$(lsblk -lp | grep "part $" | awk '{print " " $1 , "("$4")"}' | dmenu)" #vill få så att gigsen ($4) er i parantes
+
+[ -z "$device" ] && exit || point="$(find /mnt /home -type d -maxdepth 3 2>/dev/null | dmenu)"
+
+dev=$(echo $device | awk '{print $2}')
+
+[ -z "$point" ] && exit || doas mount $dev $point && notify-send -t 2500 " $dev mounted on $point successfully"
+
+#Göra så att man inte kan mounta på samma mountpoint

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#delimiterendchar = 20:
+norm="\25"
+green="\26"
+red="\27" 
+blue="\30"
+yellow="\31"
+brown="\32"
+purple="\33"

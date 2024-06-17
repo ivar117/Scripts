@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. ~/.local/bin/status/färger
+
+#date '+%a %b %d, %H:%M' #awesomewm date, bäst längst i högra hörnet ksk
+printf "$purple  $norm" && date '+%H:%M%p '
+
+#[ $(date '+%H:%M%p ') = 13:37 ] && printf " 😲 " && date '+%H:%M%p ' || [  $(date '+%H:%M%p ') != 13:37  ] && printf "\21  \13" && date '+%H:%M%p '
+# om det är 13:37då det 😮  

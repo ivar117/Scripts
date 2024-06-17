@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# TODO: lägg till en för custom output format
+# Maybe latest-window, latest-full, latest-selected lol
+# If screens dir don't existare
+
+xclip_cmd="xclip -sel clip -t image/png"
+
+case "$(printf " Select\n Window\n" | dmenu -i)" in
+	" Select") printf "/home/ivar/Bilder/screens/selected/pic-selected-$(date +%s).png\n" > /tmp/screenshot && maim -u -s "$(cat /tmp/screenshot)" | ${xclip_cmd} && notify-send -i "$(cat /tmp/screenshot)" -t 2500 'Screenshot taken...' && cp ""$(cat /tmp/screenshot)"" ~/Bilder/screens/latest/latest.png ;;
+	" Window") printf "/home/ivar/Bilder/screens/window/pic-window-$(date +%s).png\n" > /tmp/screenshot && maim -u -i $(xdotool getactivewindow) "$(cat /tmp/screenshot)" && notify-send -i "$(cat /tmp/screenshot)" -t 2500 'Screenshot taken...' && cp "$(cat /tmp/screenshot)" ~/Bilder/screens/latest/latest.png ;;
+esac
+#maim -u -s ~/Bilder/screens/pic-selected-$(date +%s).png #| convert - \( +clone -background black -shadow 80x3+5+5 \) +swap -background none -layers merge +repage 

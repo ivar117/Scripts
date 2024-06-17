@@ -1,0 +1,9 @@
+#!/bin/bash
+#name=ivar
+#echo eenter your name"
+echo "enter your name"
+read name1 
+#[ $(echo "name1") = ivar ] && 
+echo "enter your password"
+read -s pass
+[ $(echo $pass) -gt 2 ] && echo "Welcome $name1!" || echo "Wrong password!"

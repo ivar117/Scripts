@@ -1,0 +1,8 @@
+#!/bin/sh
+
+xmenu <<EOF | sh &
+ Shutdown		doas shutdown -h now
+ Reboot		doas reboot
+ Lock			slock
+ Log out		pkill x
+EOF

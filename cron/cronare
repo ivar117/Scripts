@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#sleep 1800 && 
+#while true; do
+#	cron-pacman
+#	cron-rss
+#	sleep 1800
+#	#sleep 1800
+#done
+
+sleep 1800 && 
+while true; do
+	[ $(cat /sys/class/net/eth0/operstate) = down ] && [ $(cat /sys/class/net/wlan0/operstate) = down ] && exit || cron-pacman & cron-rss 
+	xdg-xmenu > ~/.local/share/xdg-xmenu
+	sleep 1800
+	#sleep 1800
+done

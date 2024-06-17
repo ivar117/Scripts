@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#chosen="$(find /home -type d | grep -Ev "BraveSoftware/.*" | fzf )"
+#
+#[ -z "$chosen" ] && exit || cp "$1" $chosen 
+
+[ -z "$1" ] && printf "Ett argument krävs.\n" exit || chosen="$(find /home/$USER -type d | grep -Ev "BraveSoftware/.*" | fzf )"
+
+[ -z "$chosen" ] && exit || cp -ripv "$1" $chosen 

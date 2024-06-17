@@ -1,0 +1,4 @@
+#!/bin/sh
+
+chosen=$(man -k . | dmenu -l 15 -h 32) 
+[ -z "$chosen" ] && exit || printf $chosen | awk '{print $1}' | xargs -r man -Tpdf | zathura -

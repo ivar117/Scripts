@@ -1,0 +1,13 @@
+#!/bin/sh
+
+chosen=$(printf "dwm to awesome\nawesome to dwm\n" | fzf)
+
+case $chosen in
+	'dwm to awesome') sed -i 's/dwmblocks/#dwmblocks/g;s/dbus-launch --exit-with-session dwm/#dbus-launch --exit-with-session dwm/;s/#exec awesome/exec awesome/' $XINITRC ;;
+	'awesome to dwm') sed -i 's/#dwmblocks/dwmblocks/g;s/#dbus-launch --exit-with-session dwm/dbus-launch --exit-with-session dwm/;s/exec awesome/#exec awesome/' $XINITRC ;;
+esac
+
+#case $chosen in
+	#'dwm to awesome') sed -i 's/dwmblocks/#dwmblocks/g;s/dbus-launch --exit-with-session dwm/#dbus-launch --exit-with-session dwm/;s/#exec awesome/exec awesome/;s/#sxhkd/sxhkd/' $XINITRC ;;
+	#'awesome to dwm') sed -i 's/#dwmblocks/dwmblocks/g;s/#dbus-launch --exit-with-session dwm/dbus-launch --exit-with-session dwm/;s/exec awesome/#exec awesome/;s/sxhkd/#sxhkd/' $XINITRC ;;
+#esac

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+url=$(dragon-drop -t -x)
+
+wget $url

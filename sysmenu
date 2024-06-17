@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#case "$(echo " Stäng av\n Starta om\n Lock" | dmenu -l 10 -h 40 -i -c )" in
+case "$(echo " Shutdown\n Reboot\n Lock\n Log Out" | dmenu -i )" in
+	' Shutdown') [ $(printf "Yes\nNo" | dmenu -p "Are you sure" ) = "Yes" ] && doas shutdown -h now ;;
+	' Reboot') [ $(printf "Yes\nNo" | dmenu -p "Are you sure" ) = "Yes" ] && doas reboot ;;
+	' Lock') slock ;;
+	' Log Out') [ $(printf "Yes\nNo" | dmenu -p "Are you sure" ) = "Yes" ] && pkill x ;;
+esac
+
+#if case is shutdown or reboot ask if really want to lol.

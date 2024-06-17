@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#Unzippa flera filer hehe till deras respektive namnare. Använbart när man har flera zip filer och bara vill få alla hehe.
+
+for file in *.zip
+do
+  unzip -d "${file%.zip}" "$file"
+done

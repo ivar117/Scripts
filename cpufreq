@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#chosen=$(echo "Powersave\nSchedutil\nPerformance" | dmenu -l 15 -h 38 -i -c -p "Frequency?" )
+chosen=$(doas cpupower frequency-info | grep -o "governors: .*" | sed 's/governors: //;s/\s/\n/g' | dmenu -l 15 -h 38 -i -c -p "Frequency?")
+
+[ -z $chosen ] && exit || doas cpupower frequency-set -g $chosen
+
+#case $chosen in
+	#Powersave) doas cpupower frequency-set -g powersave ;;
+	#Schedutil) doas cpupower frequency-set -g schedutil ;;
+	#Performance) doas cpupower frequency-set -g performance ;;
+#esac
+
+#[ $(doas cpupower frequency-info | grep "The governor" | awk '{print $3}') = "powersave" ] && doas cpupower frequency-set -g schedutil || 

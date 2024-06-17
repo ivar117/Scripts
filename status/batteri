@@ -1,0 +1,89 @@
+#!/bin/sh
+
+# Check if any then exit
+
+for battery in /sys/class/power_supply/bat_perc?
+do
+
+. ~/.local/bin/status/färger
+
+bat_perc="$(cat /sys/class/power_supply/BAT0/capacity)"
+bat_stat=$(cat /sys/class/power_supply/BAT0/status)
+
+if [ $(cat /sys/class/power_supply/BAT0/capacity) -gt 100 ]; then
+	bat_perc=100
+fi
+	#icon="  "
+if [ "$bat_perc" -gt "99" ] && [ $bat_stat = Full ] || [ $bat_stat = Charging ]; then
+	icon="$yellow"
+elif [ "$bat_perc" -gt "99" ] && [ $bat_stat = Discharging ]; then
+	icon="$green󰁹"
+elif [ "$bat_perc" -gt "64" ]; then
+	icon="$green󰂀"
+elif [ "$bat_perc" -gt "39" ]; then
+	icon="$green󰁾"
+elif [ "$bat_perc" -gt "10" ]; then
+	icon="$green󰁻"
+elif [ "$bat_perc" -gt "0" ]; then
+	icon="$red󰁺"
+fi
+
+#elif [ "$bat_perc" -gt "99" ] && [ $bat_stat = Discharging ]; then
+#	icon="$green "
+#elif [ "$bat_perc" -gt "64" ]; then
+#	icon="$green "
+#elif [ "$bat_perc" -gt "39" ]; then
+#	icon="$green "
+#elif [ "$bat_perc" -gt "10" ]; then
+#	icon="$green "
+#elif [ "$bat_perc" -gt "0" ]; then
+#	icon="\15 "
+#fi
+
+bp_file="/home/ivar/.local/share/batteri_pos"
+
+if [ $bat_stat = Charging ] || [ $bat_stat = Unknown ]; then
+	if [ $bat_perc -lt 100 ]; then
+		# Kom ihåg vilken ikon som ska visas
+		echo $(expr 1 + $(cat $bp_file)) > $bp_file
+		if [ $(cat $bp_file) -eq 5 ]; then echo 0 > $bp_file; fi
+		bp="$(cat $bp_file)"
+
+		#if [ $bp = 4 ]; then
+		#	icon="$green  "
+		#elif [ $bp = 3 ]; then
+		#	icon="$green  "
+		#elif [ $bp = 2 ]; then
+		#	icon="$green  "
+		#elif [ $bp = 1 ]; then
+		#	icon="$green  "
+		#elif [ $bp = 0 ]; then
+		#	icon="$green  "   
+
+		#if [ $bp = 4 ]; then
+		#	icon="  "
+		#elif [ $bp = 3 ]; then
+		#	icon="  "
+		#elif [ $bp = 2 ]; then
+		#	icon="  "
+		#elif [ $bp = 1 ]; then
+		#	icon="  "
+		#elif [ $bp = 0 ]; then
+		#	icon="  "   
+
+		if [ $bp = 4 ]; then
+			icon="$green󰂅"
+		elif [ $bp = 3 ]; then
+			icon="$green󰢞"
+		elif [ $bp = 2 ]; then
+			icon="$green󰢝"
+		elif [ $bp = 1 ]; then
+			icon="$green󰂆"
+		elif [ $bp = 0 ]; then
+			icon="$green󰢟"   
+		fi
+	fi
+fi
+
+printf " $icon$norm $bat_perc%% \n" #&& printf "$bat_perc%% "
+done

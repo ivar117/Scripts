@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#Misc skript, olika saker som jag inte gör så ofta men ändå ibland xd.
+#Funkar ej med restart hotkey lolle problemare med pkillareeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee kan inte ha två vars tydligenarearer.
+
+menu=$(printf "Restart hotkey daemon\nKill compositor\nRestart compositor\n" | dmenu)
+compositor=picom
+comp_opt="picom -c -f -r 10 -D 4 -m 0.9"
+hk_dameon=sxhkd
+
+case $menu in
+	"Restart hotkey daemon") pkill "$hk_daemon" ; $hk_daemon ;;
+	"Restart compositor") pkill $compositor && $compt_opt ;;
+	"Kill compositor") pkill $compositor ;;
+esac

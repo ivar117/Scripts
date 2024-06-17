@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. ~/.local/bin/status/färger
+
+printf "$red    $norm\n"
+
+#printf "\21    \17\n" #När delimiterranchar e 14

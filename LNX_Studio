@@ -1,0 +1,2 @@
+#! /bin/bash
+sclang -d ~/.local/src/LNX_Studio_xplat/ -l sclang_conf_lnx.yaml -a -i lnx

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+[ $(mpc status | awk '{print $2}') = "n/a" ] && exit || [ $(mpc status | grep "\[p" | awk '{print $1}') = "[paused]" ] && printf "  " && exit || printf "  " && exit
+#pidof -x mpdupdate >/dev/null 2>&1 || mpdupdate >/dev/null 2>&1 &

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "  $(df -h | grep "/$" | awk '{print $4}') Free "
+
+#avail=$(df -h | grep "/$" | awk '{print $4}')
+#space=$(df -h | grep "/$" | awk '{print $2}')

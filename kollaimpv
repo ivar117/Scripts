@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#Fixa så bara notify om succesful
+
+case "$1" in
+	-v) if [ $# -eq 1 ];
+  then
+	  mpv $(xclip -sel clip -o) & notify-send " Öppnar video i mpv..."
+else 
+	  mpv $2 & notify-send " Öppnar video i mpv..."
+fi ;;
+	-a) st -e mpv --video=no $(xclip -sel clip -o) ;;
+esac

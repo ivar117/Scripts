@@ -1,0 +1,1 @@
+$TERMINAL -c bc -e bc -lq

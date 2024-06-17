@@ -1,0 +1,19 @@
+#!/bin/sh
+
+file=$(readlink -f "$1")
+ext="${file##*.}"
+
+cc=tcc
+
+case "$ext" in
+	go) go run $file ;;
+	c) $cc -o "$(find $1 | sed 's/\..*//g')" $1 ;;
+	lua) lua $file ;;
+	#tex) pdflatex $file >/dev/null;;
+	tex) pdflatex $file ;;
+	#md) pandoc --filter pandoc-crossref -o "$(printf $1 | sed 's/\.md$/\.pdf/')" $file ;;
+	md) pandoc -o "$(printf $1 | sed 's/\.md$/\.pdf/')" $file ;;
+	py) python $file ;;
+	sent) setsid -f sent $file ;;
+	*) sed -n '/^#!/s/^#!//p; q' "$file" | xargs -r -I % "$file" ;;
+esac

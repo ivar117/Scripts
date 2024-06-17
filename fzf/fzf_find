@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#Todo, gör elegantare genom att man endast behöver välja filen och sedan får man diren ifrån den variabeln istället för två st fzf lollllllllllllllllll
+
+directory="$HOME/$(find * -type d | fzf)"
+
+[ -z $directory ] && exit || chosen=$(find $directory/* | fzf)
+
+[ -z $chosen ] && exit || cd $directory && $EDITOR $chosen

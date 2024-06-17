@@ -1,0 +1,5 @@
+#!/bin/sh
+
+chosen="$(printf "Yes\nNo\n" | dmenu -i -p "Slakta fönsterhanteraren?")"
+
+[ "$chosen" = Yes ] && notify-send -u critical "you eaattt seeds you're mentally ill slave" && sleep 0.5 && pkill x 

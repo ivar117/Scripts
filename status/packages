@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. ~/.local/bin/status/färger
+
+[ $(pacman -Qu | wc -l) = 0 ] && exit || printf "$yellow 󰏗$norm $(pacman -Qu | wc -l) "
+
+#pacman -Qu | grep -Fcv "[ignored]" | sed "s/^/󰣇/;s/^󰣇0$//g"
+
+#[ $(pacman -Qu | wc -l) = 0 ] && exit || printf "\16 \13 $(pacman -Qu | wc -l) updates "
+#[ $(pacman -Qu | wc -l) = 0 ] && exit || echo "\20 󰏗\13 $(pacman -Qu | wc -l) "
+#[ $(pacman -Qu | wc -l) = 0 ] && exit || echo " 󰏗 $(pacman -Qu | wc -l) "

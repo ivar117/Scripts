@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#TODO, inkludera ej dirs, fixas genom grep -v bort de men inte effective woooowwwww. Gör så att om gör ny och redan existera då prompta och sedan kör om igen
+
+op="$(printf "Ny\nÄndra\nTa bort\nConfig" | dmenu -i)"
+
+filexist() {
+	svar=$(printf "Ja\nNej\n" | dmenu -i -p "Filen existerar redan. Öppna den?")
+	[ "$svar" = Ja ] && $TERMINAL $EDITOR ~/Dokument/anteckningar/$fil || exit
+}
+
+case $op in
+	'Ny') fil="$(printf "" | dmenu -p "Filnamn?")" 
+		#[ -z $fil ] && exit || [ -z $(ls ~/Dokument/anteckningar/$fil) ] && $TERMINAL $EDITOR ~/Dokument/anteckningar/$fil || notify-send "Filen existerar redan!" ;;
+		[ -z $fil ] && exit || [ -z $(ls ~/Dokument/anteckningar/$fil) ] && $TERMINAL $EDITOR ~/Dokument/anteckningar/$fil || filexist ;;
+
+	'Ändra') chosen="$(ls -t ~/Dokument/anteckningar | grep -v recept | egrep -v "\.pdf$" | dmenu -l 15 -h 32 -i)" 
+		[ -z $chosen ] && exit || $TERMINAL $EDITOR ~/Dokument/anteckningar/$chosen ;;
+		
+	'Ta bort') chosen="$(ls -t ~/Dokument/anteckningar | grep -v recept | egrep -v "\.pdf$" | dmenu -l 15 -h 32 -i)"
+		[ -z $chosen ] && exit || rm ~/Dokument/anteckningar/$chosen && notify-send "  Tog bort filen $chosen" ;;
+
+	'Config') $TERMINAL -e $EDITOR $0 ;;
+esac

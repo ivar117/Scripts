@@ -1,0 +1,3 @@
+#!/bin/sh
+
+notify-send "All mpv instances terminated" && pkill mpv

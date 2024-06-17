@@ -1,0 +1,97 @@
+#!/bin/sh
+#Choosare vad för ffmpeg inspelning du vill haareare via dmenu yeah. 
+
+#Todo: Om jag tycka c'est necessaire, då kan göra så till och med väljer -f flaggen, t.ex. med Ljud -f pulse 0 är för datorns ljud, men aaaaaa yeeee. Kanske "vilken file extension i framtiden, .mkv .webm .m4a osv lollllee. Gör så att en till entry i chosen så att det är mest recent genom att printf > chosen till filare i rr använda så om man gör något om och om igen inte lika jobbigt. Gör en resolution=då det kommandot som automatiskt ger resolution sedan ha -r $resolution i ffmpeg skripet typ. Gör en delay så att det börjar spela in efter typ en sek. 
+
+video_dir="$HOME/Dokument/audio/inspelningar/video"
+audio_dir="$HOME/Dokument/audio/inspelningar/audio"
+
+updateicon() { \
+	#sleep 0.4
+	printf "på" > ~/.local/share/recfile
+	sigdwmblocks 10
+}
+
+	#-ac 2 \
+	#-ar 48000 \
+webcam() { \
+	ffmpeg \
+	-f v4l2 \
+	-i /dev/video0 \
+	-video_size 1920x1080 \
+	$video_dir/"webcam-$(date '+%y%m%d-%H%M-%S').mkv" & \
+	updateicon
+}
+
+video() { \
+	ffmpeg \
+	-f x11grab \
+	-s "$(xdpyinfo | grep -i dimensions | awk '{print $2}')"  \
+	-i "$DISPLAY" \
+	-f pulse \
+	-i "$(pactl get-default-sink)".monitor \
+	-c:a flac \
+	-c:v libx264 -qp 0 -r 30  \
+	$video_dir/"$(printf vid-$(date '+%y%m%d-%H%M-%S').mkv)" & \
+	updateicon
+}
+
+video_utan_ljud() { \
+	ffmpeg \
+	-f x11grab \
+	-s "$(xdpyinfo | grep -i dimensions | awk '{print $2}')"  \
+	-i "$DISPLAY" \
+	-c:v libx264 -qp 0 -r 30  \
+	$video_dir/"$(printf vid-$(date '+%y%m%d-%H%M-%S').mkv)" & \
+	updateicon
+}
+
+	 #-ac 2 \
+	 #-ar 48000 \
+ljud() { \
+	 ffmpeg \
+	 -f pulse \
+	 -i "$(pactl get-default-sink)".monitor \
+	 -c:a flac \
+	 $audio_dir/"$(printf recording-$(date '+%y%m%d-%H%M-%S').flac)" & \
+	 updateicon
+}
+
+#ffmpeg -f pulse -ac 2 -ar 48000 -i alsa_output.usb-BEHRINGER_UMC204HD_192k-00.Direct__hw_U192k__sink.monitor out.wav -y
+
+mic() { \
+	ffmpeg \
+	-f pulse -i default -ar 44100 \
+	-c:a flac \
+	$audio_dir/"$(printf recording-$(date '+%y%m%d-%H%M-%S').flac)" & \
+	updateicon
+}
+
+		#-framerate 60  \
+		#--f pulse -i default \
+screencast() { \
+		ffmpeg \
+		-f x11grab \
+		-s "$(xdpyinfo | grep -i dimensions | awk '{print $2}')" -r 30 -i "$DISPLAY" \
+		-f pulse \
+		-i "$(pactl get-default-sink)".monitor \
+		-f pulse \
+		-i "$(pactl get-default-source)" \
+		-filter_complex amix=inputs=2 \
+		-c:a flac \
+		-r 30 -c:v h264 -crf 0 -preset ultrafast \
+		-c:a aac -ar 44100 \
+		$video_dir/"$(printf screencast-$(date '+%y%m%d-%H%M-%S').mkv)" & \
+		updateicon
+}
+
+#TODO gör så att alla funkar på $1 argument så kan göra direkt från cmd line, eller en separat case för det.
+case "$(printf "Video\nVideo Utan Ljud\nLjud\nMic\nWebcam\nScreencast\n" | dmenu -bw 2 -l 10 -h 38 -c -i -p "Vilken slags inspelning?")" in
+	Video) video ;;
+	'Video Utan Ljud') video_utan_ljud ;;
+	Ljud) ljud ;;
+	Mic) mic ;;
+	Screencast) screencast ;;
+	Webcam) webcam ;;
+esac
+

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+. ~/.local/bin/status/färger
+
+#pacmd list-sinks ser om det är speaker eller headphones
+#kan göra något så om jag har headphones i så byt emoji osv
+
+#󰖀
+vol=$(pactl -- get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
+if [ $(pactl -- get-sink-mute @DEFAULT_SINK@ | awk '{print $2}') = "yes" ] || [ $vol = 0% ]; then
+	printf "$red 󰖁 $norm\n" && exit
+elif [ $(pactl -- get-sink-mute @DEFAULT_SINK@ | awk '{print $2}') = "no" ] || [ $vol != 0% ]; then
+	echo "$blue 󰕾$norm" "$vol " && exit
+	#printf "%s%s\n" "$blue 󰕾$norm " "$vol " && exit
+fi
+
+#[ $(pactl -- get-sink-mute @DEFAULT_SINK@ | awk '{print $2}') = "yes" ] && printf "$red 󰖁 $norm\n" && exit
+
+#[ $(pactl -- get-sink-mute @DEFAULT_SINK@ | awk '{print $2}') = "yes" ] && printf "$red 󰖁 $norm\n" && exit
+#
+##vol=$(pactl -- get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
+#vol=$(pactl -- get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | sed 's/%//')
+#
+#if [ $vol -gt 30 ]; then
+#	echo "$blue 󰕾  $norm" "$vol% " && exit
+#elif [ $vol -gt 0 ]; then
+#	echo "$blue 󰖀$norm" "$vol% " && exit
+#	#printf "%s%s\n" "$blue 󰕾$norm " "$vol " && exit
+#else
+#	printf "$red 󰖁 $norm\n" && exit
+#fi

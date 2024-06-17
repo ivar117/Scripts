@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#echo "$(xclip -o -sel clip | wc -w)"
+echo "$(xclip -out | wc -w)"

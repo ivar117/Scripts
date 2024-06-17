@@ -1,0 +1,5 @@
+#!/bin/sh
+
+read -r input
+
+printf "$input * 57.295779513\n" | bc

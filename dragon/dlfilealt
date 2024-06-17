@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#TODO, gör en version där man skriver in vilket dir ksk, om använder utanför lf
+# Provides the ability to download a file by dropping it into a window
+
+url=$(dragon-drop -t -x)
+
+wget $url

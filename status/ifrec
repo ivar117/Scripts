@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. ~/.local/bin/status/färger
+
+#Todo: Ändra ikonen beroende på video eller ljud osv ksk
+
+[ "$(cat ~/.local/share/recfile)" = på ] && echo "$red  $norm" && exit 

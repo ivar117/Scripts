@@ -1,0 +1,9 @@
+#!/bin/sh
+
+wm=$(xprop -id $(xprop -root -notype | awk '$1=="_NET_SUPPORTING_WM_CHECK:"{print $5}') -notype -f _NET_WM_NAME 8t | grep "WM_NAME" | cut -f2 -d \")
+
+pkill dunst && dunst &
+
+cat $XDG_CACHE_HOME/wal/colors.Xresources > $XDG_CONFIG_HOME/X11/xresources && xrdb $XDG_CONFIG_HOME/X11/xresources && cd ~/.local/src/dwm && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h && pkill -HUP $wm && cd ~/.local/src/st && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h && cd ~/.local/src/dmenu && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h && cd ~/.local/src/xmenu && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h
+
+#cd ~/.local/src/st && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h && cd ~/.local/src/dwm && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h && cd ~/.local/src/dmenu && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h && cd ~/.local/src/xmenunonint && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h && cd ~/.local/src/xmenu && cp config.h config.def.h && rm -f config.h && doas make install && rm -f config.def.h && xdotool key super+ctrl+r 

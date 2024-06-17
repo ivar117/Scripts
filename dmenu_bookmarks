@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# TODO: det där om redan finns måste göra så att det är absoluta, så att det inte kan vara en del av en sida och då räknas som att finns
+
+add_bookmark() {
+	omfinns=$(grep $(xclip -sel clip -out) $XDG_DATA_HOME/bokmärken)
+	[ -z $omfinns ] && printf "$(xclip -o)\n" >> ~/.local/share/bokmärken && notify-send "  Bokmärke tillagt." || notify-send "  Bokmärke finns redan." && exit
+}
+
+case "$1" in
+	-b) chosen=$(tac ~/.local/share/bokmärken | sed "s/https\?:\/\///g;" | dmenu -i -l 15 -h 32 -p " Bokmärken:") 
+		[ -z $chosen ] && exit || $BROWSER $chosen ;;
+	-a) add_bookmark ;;
+	-c) chosen=$(tac ~/.local/share/bokmärken | sed "s/https\?:\/\///g;" | dmenu -i -l 15 -h 32 -p " Bokmärken:") 
+		[ -z $chosen ] && exit || printf $chosen | xclip -sel clip && notify-send "Link copied to clipboard " ;;
+	-h) printf "usage: dmenu_bookmarks [option]\n\noptions:\n-a	add bookmark to the list\n-b	open the bookmark in browser\n-c	copy the bookmark link to clipboard\n-h	show this help message and exit\n"
+esac

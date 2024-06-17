@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. ~/.local/bin/status/färger
+
+if [ $(cat /sys/class/net/wlan0/operstate) = down ] && [ $(cat /sys/class/net/eth0/operstate) = down ]; then 
+	icon="$norm 󱞐 $norm"
+elif [  $(cat /sys/class/net/wlan0/operstate) = up ] && [ $(cat /sys/class/net/eth0/operstate) = down ]; then
+	icon="$norm  $norm"
+elif [ $(cat /sys/class/net/eth0/operstate) = up ]; then
+	icon="$norm  $norm"
+fi
+printf "$icon\n"
+#[ $(cat /sys/class/net/wlan0/operstate) = down ] && [ $(cat /sys/class/net/eth0/operstate) = down ] && echo "󰤭 " && exit 
+#
+#[ $(cat /sys/class/net/wlan0/operstate) = up ] && echo " " ; [ $(cat /sys/class/net/eth0/operstate) = up ] && echo "  "  && exit

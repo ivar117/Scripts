@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#Simple script to open videos in mpv from a file via dmenu
+#TODO: 
+	# Skriv ett skript som lägger till något i början av filen till skillnad från >> som används i detta skript se $video.
+	# Lägg till video längd via wget i dmenu grejen
+	# Hantera playlists
+	# Gör så att när väljer att kolla på video så frågor den om det ska vara video eller bara audio (kan använda skript för att spara podcasts o sånt oxå)
+
+menu=$(printf "Lägg till video\nKolla på video\nKopiera video URL till clipboard\nRedigera videolistan\nRedigera config" | dmenu -p "  " -i -l 15 -h 38)
+
+case $menu in
+	'Lägg till video') link=$(printf "" | dmenu -p "Link?")
+				#Fixa detta så att den quittar då hehe funkar ej just nu
+				#notify-send " Video finns redan med." && exit
+				[ -z $link ] && exit || ifexist=$(grep "$link" $XDG_DATA_HOME/videor)
+				title=$(wget -qO- $link | perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si')
+				video=$(printf "$link #$title\n"; cat $XDG_DATA_HOME/videor)
+				printf "$video\n" > $XDG_DATA_HOME/videor && notify-send " Video tillagd.";;
+	'Kolla på video') chosen=$(cat $XDG_DATA_HOME/videor | dmenu -i -l 15 -h 32 | sed 's/#.*//')
+	[ -z $chosen ] && exit || notify-send " Öppnar video i mpv..." && mpv "$chosen" ;;
+  'Kopiera video URL till clipboard') chosen=$(cat $XDG_DATA_HOME/videor | dmenu -i -l 15 -h 32 | sed 's/#.*//')
+	[ -z $chosen ] && exit || printf $chosen | xclip -sel clip && notify-send "Link copied to clipboard " ;;
+	'Redigera videolistan') setsid -f $TERMINAL -e $EDITOR $XDG_DATA_HOME/videor ;;
+	'Redigera config') setsid -f $TERMINAL -e $EDITOR $0 ;;
+esac

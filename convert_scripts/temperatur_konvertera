@@ -1,0 +1,17 @@
+#!/bin/sh
+#Skript som konverterar mellan olika temperaturer
+
+case "$1" in
+	-cf) printf "$2 * 1.8 + 32\n" | bc ;;
+	-fc) printf "($2 - 32) / 1.8\n" | bc
+esac
+
+
+##Bloat?:
+
+#case "$1" in
+#	-cf) temp = $(printf "$2 * 1.8 + 32\n" | bc) ;;
+#	-fc) temp = $(printf "($2 - 32) / 1.8\n" | bc)
+#esac
+#
+#[ -z $temp ] && exit || printf $temp

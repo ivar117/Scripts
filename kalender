@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#pipes cal into xmenu in non-interactive mode which makes for a nice calendar. Shows the current date.
+
+#Fixa så att det räcker med en gt or equal
+
+if [ $(date '+%d') -gt "10" ] || [ $(date '+%d') = "10" ]; then 
+	cal --color=always | sed 's/..7m//;s/..27m//' | xmenu -n > /dev/null && sigdwmblocks 1
+elif [ $(date '+%d') -lt "10" ]; then
+	cal --color=always | sed 's/..7m.//;s/..27m//' | xmenu -n > /dev/null && sigdwmblocks 1
+fi 
+
+#if [ $(date '+%d') -gt "10" ] || [ $(date '+%d') = "10" ]; then 
+	#cal --color=always | sed 's/...7m//;s/..27m.//' | xmenu -n > /dev/null && sigdwmblocks 1
+#elif [ $(date '+%d') -lt "10" ]; then
+	#cal --color=always | sed 's/..7m.//;s/..27m//' | xmenu -n > /dev/null && sigdwmblocks 1
+#fi 

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+mpv --player-operation-mode=pseudo-gui

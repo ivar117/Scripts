@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. ~/.local/bin/status/färger
+
+#echo "$(newsboat -x print-unread | awk '{print "\31  \25" $1}') "
+printf "$yellow  $norm" && (newsboat -x print-unread | awk '{print $1}')

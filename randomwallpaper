@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ranwal=$(ls ~/Bilder/landscapes/wallpaper | sort -R | shuf -n1)
+
+xwallpaper --zoom ~/Bilder/landscapes/wallpaper/$ranwal
+
+#kan ha den i displayselect så att det inte blir nytt varje gång jag ändrar display
+echo ~/Bilder/landscapes/wallpaper/$ranwal > ~/.local/share/senastwallpaper

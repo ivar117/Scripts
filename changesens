@@ -1,0 +1,4 @@
+#!/bin/sh
+
+speed=0.6
+[ -z $(xinput --list | grep "Lenovo ThinkPad Compact USB Keyboard with TrackPoint") ] && exit || xinput set-prop "10" "libinput Accel Speed" "$speed" || xinput set-prop "17" "libinput Accel Speed" "$speed"

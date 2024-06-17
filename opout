@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#TODO: gör så att både tex o md är i samma
+
+file=$(readlink -f "$1")
+ext="${file##*.}"
+
+case "$ext" in
+	html) setsid -f $BROWSER --new-window $file ;;
+	tex) setsid -f zathura "$(echo $file | sed 's/tex$/pdf/')" ;; 
+	md) setsid -f zathura "$(echo $file | sed 's/md$/pdf/')" ;;
+esac

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chosen=$(cat ~/.local/share/xdg-xmenu | xmenu && $chosen) #funka ej fix

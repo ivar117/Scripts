@@ -1,0 +1,12 @@
+#!/bin/sh
+
+brightness_notif() {
+    notify_id=507
+    notify-send -r $notify_id -t 1600 -i /home/ivar/.local/share/icons/high-brightness.svg "$(xbacklight -get)%"
+    #notify-send -r $notify_id -t 1600 -i /home/ivar/.local/share/icons/high-brightness.svg "$(printf "%.0f%%\n" $(brillo -G))"
+}
+
+case $1 in
+    up)	doas xbacklight -inc 10 -perceived && brightness_notif ;;
+    down) doas xbacklight -dec 10 -perceived && brightness_notif ;;
+esac

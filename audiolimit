@@ -1,0 +1,5 @@
+#!/bin/sh
+
+#[ $(pactl -- get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | sed 's/%//') -gt 150 ] && pactl -- set-sink-volume @DEFAULT_SINK@ 150% && sigdwmblocks 9
+
+[ $(pactl -- get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | sed 's/%//') -gt 150 ] || [ $(pactl -- get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | sed 's/%//') -eq 150 ] && pactl -- set-sink-volume @DEFAULT_SINK@ 150% && sigdwmblocks 9

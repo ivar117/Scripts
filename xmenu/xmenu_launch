@@ -1,0 +1,24 @@
+#!/bin/sh
+#find /usr/share/icons* | g <program> 
+	# Web Browser	librewolf
+	# Calculator	xdotool key super+c
+	# File manager	$TERMINAL ranger
+	# DAW	ardour6 -n
+	# Image editor	gimp
+	#󰂫 3D graphics	blender
+	# Video editor	kdenlive
+xmenu <<EOF | sh &
+Applications
+	IMG:/home/ivar/.local/share/icons/web.png		Web Browser	$BROWSER
+	IMG:/home/ivar/.local/share/icons/calc.png		Calculator	xdotool key super+c
+	IMG:/home/ivar/.local/share/icons/folder-open.svg	File manager	$TERMINAL ranger
+	IMG:/home/ivar/.local/share/icons/ardour.svg	DAW	ardour6 -n
+	IMG:/home/ivar/.local/share/icons/gimp.png		Image editor	gimp
+	IMG:/home/ivar/.local/share/icons/blender-3d.png		3D graphics	blender
+	IMG:/home/ivar/.local/share/icons/kdenlive_94451.png	Video editor	kdenlive
+ Terminal		$TERMINAL
+
+ Shutdown		doas shutdown -h now
+ Reboot		doas reboot
+ Lock			slock
+EOF

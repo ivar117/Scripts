@@ -1,0 +1,8 @@
+#!/bin/sh
+LOCATION=uppsala
+weatherreport="${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport"
+curl -sf wttr.in/$LOCATION > $weatherreport || exit 1
+temp=$(sed '13q;d' "$weatherreport" | grep -o "m\\([-+]\\)*[0-9]\\+" | sed 's/+//g' | sort -n -t 'm' -k 2n | sed -e 1b -e '$!d' | tr '\n|m' ' ' | awk '{print $2}')
+[ -z $temp ] && exit || printf " ⛅$temp°C "
+#curl wttr.in
+#Partly cloudy, Sunny, Patchy rain possible, Cloudy

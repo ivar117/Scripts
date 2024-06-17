@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cc=tcc
+
+$cc -o "$(find $1 | sed 's/\..*//g')" -lncurses $1

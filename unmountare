@@ -1,0 +1,7 @@
+#!/bin/sh
+
+[ -z "$(lsblk -lp | grep "part /.\+" | grep -v "part /home")" ] && exit || device=$(lsblk -lp | grep "part /.\+" | grep -v "part /home" | awk '{print " " $1 , "("$4")" , $7}' | dmenu)
+
+[ -z "$device" ] && exit || dev=$(echo "$device" | awk '{print $2}')
+
+[ -z "$dev" ] && exit || doas umount $dev && notify-send -t 2500 " $dev unmounted successfully" || notify-send -t 2500 " Unable to unmount $dev, check if target is busy."

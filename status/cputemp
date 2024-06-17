@@ -1,0 +1,3 @@
+#!/bin/sh
+#Ändra ikon beroende på hur mpnga grader 
+printf " \27󰔏\25 $(sed 's/000$/°C/' /sys/class/thermal/thermal_zone1/temp) "

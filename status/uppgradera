@@ -1,0 +1,7 @@
+#!/bin/sh
+
+yay -Syu
+sigdwmblocks 5
+
+printf "\\nUpgrade complete.\\nPress <Enter> to exit window.\\n\\n"
+read -r _

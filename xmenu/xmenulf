@@ -1,0 +1,6 @@
+#!/bin/sh
+
+xmenu <<EOF | sh &
+Unzip	unzip $1
+Edit	nvim $1
+EOF

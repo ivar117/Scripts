@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#ev keybind i aliasrc
+
+fil=$(du -a ~/.config/nvim/* | awk '{print $2}' | grep -v "config/nvim/plugged/*" | fzf) 
+location=$(printf "$fil\n" | sed 's/\//\n\//g' | sed '$d;1d' | sed -z 's/\n//g')
+[ -z $fil ] && return 0 || cd $location && $EDITOR $fil && cd $HOME

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#TODO: Gör så att lägga till options hanteras bättre på något sätt, istället för en tom dmenu prompt där man skriver in det, kanske öppna upp en temporär term för att göra det så kan få completion för options.
+
+file=$(readlink -f "$1")
+ext="${file##*.}" #Lär mig om vad detta ens betyder
+
+formatout=$(pandoc --list-output-formats | dmenu -i -p "File format output?")
+
+[ -z $formatout ] && exit || op=$(printf "" | dmenu -p "Options?")
+
+#pandoc -o "$(find $1 | sed 's/'$ext'/'$formatout'/g')"
+#[ -z $formatout ] && exit || pandoc -o "$op" "$(printf "$file" | sed 's/'$ext'/'$formatout'/g')" "$file"
+#[ $formatout == "markdown" ] && $formatout = "md"
+if [ $formatout = "markdown" ]; then 
+	formatout="md"
+elif [ $formatout = "latex" ]; then
+	formatout="tex"
+fi
+
+[ -z $formatout ] && exit || pandoc $op -o "$(printf "$file\n" | sed 's/'$ext'$/'$formatout'/')" $file

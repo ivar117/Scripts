@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#case $BLOCK_BUTTON in
+#	4) doas xbacklight -inc 5 ;;
+#	5) doas xbacklight -dec 5 ;;
+#
+#esac
+
+printf " 🔆 " && echo "$(doas xbacklight -get)"%

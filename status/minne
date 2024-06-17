@@ -1,0 +1,11 @@
+#!/bin/sh
+
+. ~/.local/bin/status/färger
+
+printf "$green  $norm" && echo "$(free -h | grep Mem | awk '{print $3"/"$2}' | sed 's/i//g;s/$/ /')"
+
+#printf "\14  \13" && echo "$(free -h | grep Minne | awk '{print $3"/"$2}' | sed 's/i//g;s/$/ /')"
+#echo "\14  \13" && free -h | grep Minne | awk '{print $3"/"$2}' | sed 's/i//g;s/$/ /'
+#echo "  $(free -h | grep Minne | awk '{print $3"/"$2}' | sed 's/i//g') "
+#󰍛
+#printf "▆█▅▂█▃▁█"
